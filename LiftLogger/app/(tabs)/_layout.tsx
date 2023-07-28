@@ -1,7 +1,6 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Colors from "@/constants/Colors";
 
@@ -37,12 +36,18 @@ export default function TabLayout() {
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
+                  <>
+                    <AntDesign
+                      name="pluscircle"
+                      size={23}
+                      color={Colors[colorScheme ?? "light"].text}
+                      style={{
+                        marginRight: 20,
+                        marginBottom: 5,
+                        opacity: pressed ? 0.5 : 1,
+                      }}
+                    />
+                  </>
                 )}
               </Pressable>
             </Link>
