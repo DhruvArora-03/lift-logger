@@ -1,15 +1,14 @@
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
-import { View } from "@/components/Themed";
 import WorkoutCard from "@/components/WorkoutCard";
 
 export default function Workouts() {
   return (
-    <View style={styles.page}>
+    <ScrollView style={styles.page}>
       {workoutData.map((workout) => (
         <WorkoutCard key={workout.id} workout={workout} />
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
