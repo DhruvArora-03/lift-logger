@@ -36,18 +36,16 @@ export default function TabLayout() {
             <Link href="/modal" asChild>
               <Pressable>
                 {({ pressed }) => (
-                  <>
-                    <AntDesign
-                      name="pluscircle"
-                      size={23}
-                      color={Colors[colorScheme ?? "light"].text}
-                      style={{
-                        marginRight: 20,
-                        marginBottom: 5,
-                        opacity: pressed ? 0.5 : 1,
-                      }}
-                    />
-                  </>
+                  <AntDesign
+                    name="pluscircle"
+                    size={23}
+                    color={Colors[colorScheme ?? "light"].text}
+                    style={{
+                      marginRight: 20,
+                      marginBottom: 5,
+                      opacity: pressed ? 0.5 : 1,
+                    }}
+                  />
                 )}
               </Pressable>
             </Link>
