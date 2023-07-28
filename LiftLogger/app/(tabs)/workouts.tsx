@@ -1,5 +1,5 @@
-import { ScrollView, StyleSheet } from "react-native";
-
+import { StyleSheet } from "react-native";
+import { ScrollView } from "@/components/Themed";
 import WorkoutCard from "@/components/WorkoutCard";
 
 export default function Workouts() {
