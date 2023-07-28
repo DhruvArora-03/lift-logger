@@ -6,6 +6,7 @@ import WorkoutCard from "@/components/WorkoutCard";
 const workoutData = [
   {
     id: "15cb2e9e-eb2a-47bf-95b3-e694b3c19d77",
+    name: "Chest Day",
     date: new Date(2023, 2, 11), // 2023-02-11
     exercises: [
       {

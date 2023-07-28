@@ -5,7 +5,9 @@ import { Text, View } from "react-native";
 export default function WorkoutCard(props: { workout: Workout }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{props.workout.date.toLocaleDateString()}</Text>
+      <Text style={styles.text}>
+        {props.workout.date.toLocaleDateString()} - {props.workout.name}
+      </Text>
     </View>
   );
 }
