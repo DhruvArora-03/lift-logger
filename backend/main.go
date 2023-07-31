@@ -13,11 +13,13 @@ type workout struct {
 	Date time.Time `json:"date"`
 }
 
+var workouts = []workout{}
+
 func main() {
 	router := gin.Default()
 	router.GET("/workouts", getWorkouts)
 }
 
-func getWorkouts(c gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
+func getWorkouts(c *gin.Context) {
+	c.IndentedJSON(http.StatusOK, workouts)
 }
