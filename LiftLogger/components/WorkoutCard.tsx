@@ -1,11 +1,8 @@
 import { Workout } from "@/constants/Types";
-import { StyleSheet, useColorScheme } from "react-native";
+import { StyleSheet } from "react-native";
 import { Text, View } from "./Themed";
-import Colors from "@/constants/Colors";
 
 export default function WorkoutCard(props: { workout: Workout }) {
-  const colorScheme = useColorScheme() ?? "light";
-
   return (
     <View style={styles.container} colorKey="textBackground">
       <Text style={styles.bigText}>

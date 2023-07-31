@@ -1,8 +1,9 @@
-import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import { useColorScheme } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Colors from "@/constants/Colors";
+import NewWorkoutButton from "@/components/NewWorkoutButton";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -32,24 +33,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="weight-lifter" color={color} />
           ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <AntDesign
-                    name="pluscircle"
-                    size={23}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{
-                      marginRight: 20,
-                      marginBottom: 5,
-                      opacity: pressed ? 0.5 : 1,
-                    }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerRight: () => <NewWorkoutButton />,
         }}
       />
       <Tabs.Screen
