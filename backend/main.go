@@ -29,6 +29,8 @@ type set struct {
 func main() {
 	router := gin.Default()
 	router.GET("/workouts", getWorkouts)
+
+	router.Run("localhost:8080")
 }
 
 func getWorkouts(c *gin.Context) {
