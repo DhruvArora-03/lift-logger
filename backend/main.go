@@ -29,12 +29,26 @@ type set struct {
 func main() {
 	router := gin.Default()
 	router.GET("/workouts", getWorkouts)
+	router.GET("/workouts/:id", getWorkout)
 
 	router.Run("localhost:8080")
 }
 
 func getWorkouts(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, workouts)
+}
+
+func getWorkout(c *gin.Context) {
+	id := c.Param("id")
+
+	for _, workout := range workouts {
+		if workout.ID == id {
+			c.IndentedJSON(http.StatusOK, workout)
+			return
+		}
+	}
+
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "workout not found"})
 }
 
 var workouts = []workout{
