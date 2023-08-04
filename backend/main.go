@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -28,15 +27,12 @@ type set struct {
 	Weight int    `json:"weight"`
 }
 
-type newWorkout struct {
-	Name string `json:"name"`
-}
-
 func main() {
 	router := gin.Default()
 	router.GET("/workouts", getWorkouts)
 	router.GET("/workouts/:id", getWorkout)
 	router.POST("/workouts", addWorkout)
+	router.PUT("/workouts/:id/name", updateWorkoutName)
 
 	router.Run("localhost:8080")
 }
@@ -59,15 +55,15 @@ func getWorkout(c *gin.Context) {
 }
 
 func addWorkout(c *gin.Context) {
-	var body newWorkout
+	var body struct {
+		Name string `json:"name"`
+	}
 	err := c.BindJSON(&body)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "invalid body"})
 		return
 	}
-
-	fmt.Println(len(workouts))
 
 	workouts = append(workouts, workout{
 		ID:        uuid.New().String(),
@@ -76,9 +72,31 @@ func addWorkout(c *gin.Context) {
 		Exercises: []exercise{},
 	})
 
-	fmt.Println(len(workouts))
-
 	c.JSON(http.StatusCreated, gin.H{"message": "workout added"})
+}
+
+func updateWorkoutName(c *gin.Context) {
+	id := c.Param("id")
+	var body struct {
+		Name string `json:"name"`
+	}
+	err := c.BindJSON(&body) // try parsing
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "invalid body"})
+		return
+	}
+
+	// find the workout and replace Name field
+	for i := range workouts {
+		if workouts[i].ID == id {
+			workouts[i].Name = body.Name
+			c.JSON(http.StatusOK, gin.H{"message": "workout name updated"})
+			return
+		}
+	}
+
+	c.JSON(http.StatusNotFound, gin.H{"message": "workout not found"})
 
 }
 
