@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -67,8 +66,6 @@ func addWorkout(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(len(workouts))
-
 	workouts = append(workouts, workout{
 		ID:        uuid.New().String(),
 		Name:      body.Name,
@@ -76,10 +73,7 @@ func addWorkout(c *gin.Context) {
 		Exercises: []exercise{},
 	})
 
-	fmt.Println(len(workouts))
-
 	c.JSON(http.StatusCreated, gin.H{"message": "workout added"})
-
 }
 
 var workouts = []workout{
