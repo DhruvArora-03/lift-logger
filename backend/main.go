@@ -27,10 +27,6 @@ type set struct {
 	Weight int    `json:"weight"`
 }
 
-type newWorkout struct {
-	Name string `json:"name"`
-}
-
 func main() {
 	router := gin.Default()
 	router.GET("/workouts", getWorkouts)
@@ -58,7 +54,9 @@ func getWorkout(c *gin.Context) {
 }
 
 func addWorkout(c *gin.Context) {
-	var body newWorkout
+	var body struct {
+		Name string `json:"name"`
+	}
 	err := c.BindJSON(&body)
 
 	if err != nil {
