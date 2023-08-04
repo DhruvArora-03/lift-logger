@@ -1,10 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type workout struct {
@@ -26,16 +28,21 @@ type set struct {
 	Weight int    `json:"weight"`
 }
 
+type newWorkout struct {
+	Name string `json:"name"`
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/workouts", getWorkouts)
 	router.GET("/workouts/:id", getWorkout)
+	router.POST("/workouts", addWorkout)
 
 	router.Run("localhost:8080")
 }
 
 func getWorkouts(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, workouts)
+	c.JSON(http.StatusOK, workouts)
 }
 
 func getWorkout(c *gin.Context) {
@@ -43,12 +50,36 @@ func getWorkout(c *gin.Context) {
 
 	for _, workout := range workouts {
 		if workout.ID == id {
-			c.IndentedJSON(http.StatusOK, workout)
+			c.JSON(http.StatusOK, workout)
 			return
 		}
 	}
 
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "workout not found"})
+	c.JSON(http.StatusNotFound, gin.H{"message": "workout not found"})
+}
+
+func addWorkout(c *gin.Context) {
+	var body newWorkout
+	err := c.BindJSON(&body)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "invalid body"})
+		return
+	}
+
+	fmt.Println(len(workouts))
+
+	workouts = append(workouts, workout{
+		ID:        uuid.New().String(),
+		Name:      body.Name,
+		Date:      time.Now(),
+		Exercises: []exercise{},
+	})
+
+	fmt.Println(len(workouts))
+
+	c.JSON(http.StatusCreated, gin.H{"message": "workout added"})
+
 }
 
 var workouts = []workout{
