@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { ScrollView } from "@/components/Themed";
 import WorkoutCard from "@/components/WorkoutCard";
+import { AlertBox } from "react-native-alertbox";
 
 export default function Workouts() {
   return (
@@ -8,6 +9,7 @@ export default function Workouts() {
       {workoutData.map((workout) => (
         <WorkoutCard key={workout.id} workout={workout} />
       ))}
+      <AlertBox />
     </ScrollView>
   );
 }

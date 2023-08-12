@@ -34,7 +34,7 @@ func main() {
 	router.POST("/workouts", addWorkout)
 	router.PUT("/workouts/:id/name", updateWorkoutName)
 
-	router.Run("localhost:8080")
+	router.Run("192.168.1.148:80")
 }
 
 func getWorkouts(c *gin.Context) {
@@ -65,14 +65,16 @@ func addWorkout(c *gin.Context) {
 		return
 	}
 
-	workouts = append(workouts, workout{
+	newWorkout := workout{
 		ID:        uuid.New().String(),
 		Name:      body.Name,
 		Date:      time.Now(),
 		Exercises: []exercise{},
-	})
+	}
 
-	c.JSON(http.StatusCreated, gin.H{"message": "workout added"})
+	workouts = append(workouts, newWorkout)
+
+	c.JSON(http.StatusCreated, newWorkout)
 }
 
 func updateWorkoutName(c *gin.Context) {
