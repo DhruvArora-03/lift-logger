@@ -34,7 +34,7 @@ func main() {
 	router.POST("/workouts", addWorkout)
 	router.PUT("/workouts/:id/name", updateWorkoutName)
 
-	router.Run("192.168.1.148:80")
+	router.Run("127.0.0.1:80")
 }
 
 func getWorkouts(c *gin.Context) {
